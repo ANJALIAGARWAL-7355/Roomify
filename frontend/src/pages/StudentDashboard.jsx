@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import VibeCheckForm from '../components/VibeCheckForm'
 import RoomScore from '../components/RoomScore'
 import PeaceTips from '../components/PeaceTips'
+import EmergencySOS from '../components/EmergencySOS'
+import IncidentReportForm from '../components/IncidentReportForm'
 
 function StudentDashboard() {
     const navigate = useNavigate()
@@ -141,6 +143,11 @@ function StudentDashboard() {
                 </button>
             </div>
 
+            {/* Emergency SOS Section - Always visible at top */}
+            <div style={{ marginBottom: '2rem' }}>
+                <EmergencySOS username={username} roomId={roomId} />
+            </div>
+
             {submitted && (
                 <div style={{
                     padding: 'var(--spacing-md)',
@@ -197,6 +204,42 @@ function StudentDashboard() {
                     provide appropriate support. This data helps create a better living
                     environment for everyone in the hostel.
                 </p>
+            </div>
+
+            {/* Incident Reporting Section */}
+            <div style={{ marginTop: 'var(--spacing-xl)' }}>
+                <h2 style={{ marginBottom: '1rem', fontSize: '1.8rem' }}>Safety & Reporting</h2>
+                <div className="grid grid-2">
+                    <div className="glass-card">
+                        <h3 style={{ marginBottom: '1rem' }}>Emergency Contacts</h3>
+                        <ul style={{ listStyle: 'none', padding: 0 }}>
+                            <li style={{ marginBottom: '0.8rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                <span style={{ fontSize: '1.2rem' }}>👮</span>
+                                <div>
+                                    <strong>Campus Security</strong>
+                                    <div style={{ color: 'var(--text-secondary)' }}>+91 98765 43210</div>
+                                </div>
+                            </li>
+                            <li style={{ marginBottom: '0.8rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                <span style={{ fontSize: '1.2rem' }}>🚑</span>
+                                <div>
+                                    <strong>Medical Center</strong>
+                                    <div style={{ color: 'var(--text-secondary)' }}>+91 98765 43211</div>
+                                </div>
+                            </li>
+                            <li style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                <span style={{ fontSize: '1.2rem' }}>👨‍🏫</span>
+                                <div>
+                                    <strong>Chief Warden</strong>
+                                    <div style={{ color: 'var(--text-secondary)' }}>+91 98765 43212</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <IncidentReportForm username={username} roomId={roomId} />
+                    </div>
+                </div>
             </div>
         </div>
     )

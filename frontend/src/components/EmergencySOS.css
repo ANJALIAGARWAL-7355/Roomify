@@ -1,0 +1,223 @@
+/* Emergency SOS Styles */
+.emergency-sos-container {
+    width: 100%;
+    margin-bottom: var(--spacing-md);
+}
+
+.sos-button-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.emergency-button {
+    width: 100%;
+    padding: var(--spacing-lg);
+    background: linear-gradient(135deg, #ff4b4b, #d32f2f);
+    border: none;
+    border-radius: var(--radius-lg);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(211, 47, 47, 0.4);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.emergency-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transform: translateX(-100%);
+    transition: 0.5s;
+}
+
+.emergency-button:hover {
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 0 8px 30px rgba(211, 47, 47, 0.6);
+}
+
+.emergency-button:hover::before {
+    transform: translateX(100%);
+}
+
+.emergency-button:active {
+    transform: scale(0.98);
+}
+
+.sos-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    animation: pulse-icon 2s infinite;
+}
+
+.sos-text {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.sos-subtext {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-top: 0.2rem;
+}
+
+.safety-info {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-align: center;
+    margin-top: 0.5rem;
+}
+
+/* Confirmation Dialog */
+.sos-confirm-dialog {
+    background: rgba(40, 10, 10, 0.95);
+    border: 2px solid #ff4b4b;
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    text-align: center;
+    animation: slideDown 0.3s ease-out;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.confirm-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: var(--spacing-md);
+    color: #ff4b4b;
+}
+
+.confirm-header h3 {
+    margin: 0;
+    font-size: 1.4rem;
+}
+
+.warning-icon {
+    font-size: 1.8rem;
+}
+
+.confirm-message {
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-md);
+    line-height: 1.5;
+}
+
+.sos-message-input {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid #ff4b4b;
+    border-radius: var(--radius-md);
+    padding: var(--spacing-sm);
+    color: white;
+    font-family: inherit;
+    margin-bottom: var(--spacing-md);
+    resize: none;
+}
+
+.sos-message-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 75, 75, 0.3);
+}
+
+.confirm-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+}
+
+.btn-cancel {
+    background: transparent;
+    border: 1px solid var(--text-secondary);
+    color: var(--text-primary);
+    padding: 10px 20px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.btn-cancel:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.btn-confirm-sos {
+    background: #ff4b4b;
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(255, 75, 75, 0.3);
+    transition: all 0.2s;
+}
+
+.btn-confirm-sos:hover {
+    background: #ff1f1f;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 75, 75, 0.5);
+}
+
+/* Success State */
+.success-message {
+    padding: var(--spacing-lg);
+    color: var(--success);
+}
+
+.success-icon {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: var(--spacing-sm);
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes pulse-icon {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

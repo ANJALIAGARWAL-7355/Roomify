@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import RiskHeatmap from '../components/RiskHeatmap'
 import TrendGraph from '../components/TrendGraph'
 import SubmissionsManager from '../components/SubmissionsManager'
+import SOSAlerts from '../components/SOSAlerts'
+import IncidentReports from '../components/IncidentReports'
 
 function AdminDashboard() {
     const navigate = useNavigate()
@@ -81,12 +83,14 @@ function AdminDashboard() {
                 </button>
             </div>
 
+
             {/* Tab Navigation */}
             <div style={{
                 display: 'flex',
                 gap: '1rem',
                 marginBottom: 'var(--spacing-xl)',
-                borderBottom: '2px solid var(--border)'
+                borderBottom: '2px solid var(--border)',
+                overflowX: 'auto'
             }}>
                 <button
                     onClick={() => setActiveTab('dashboard')}
@@ -99,10 +103,45 @@ function AdminDashboard() {
                         fontWeight: activeTab === 'dashboard' ? 'bold' : 'normal',
                         cursor: 'pointer',
                         fontSize: '1rem',
-                        transition: 'all 0.3s ease'
+                        transition: 'all 0.3s ease',
+                        whiteSpace: 'nowrap'
                     }}
                 >
                     📊 Dashboard
+                </button>
+                <button
+                    onClick={() => setActiveTab('alerts')}
+                    style={{
+                        padding: '1rem 2rem',
+                        background: 'transparent',
+                        border: 'none',
+                        borderBottom: activeTab === 'alerts' ? '3px solid var(--primary)' : '3px solid transparent',
+                        color: activeTab === 'alerts' ? 'var(--primary)' : 'var(--text-secondary)',
+                        fontWeight: activeTab === 'alerts' ? 'bold' : 'normal',
+                        cursor: 'pointer',
+                        fontSize: '1rem',
+                        transition: 'all 0.3s ease',
+                        whiteSpace: 'nowrap'
+                    }}
+                >
+                    🚨 Emergency Alerts
+                </button>
+                <button
+                    onClick={() => setActiveTab('incidents')}
+                    style={{
+                        padding: '1rem 2rem',
+                        background: 'transparent',
+                        border: 'none',
+                        borderBottom: activeTab === 'incidents' ? '3px solid var(--primary)' : '3px solid transparent',
+                        color: activeTab === 'incidents' ? 'var(--primary)' : 'var(--text-secondary)',
+                        fontWeight: activeTab === 'incidents' ? 'bold' : 'normal',
+                        cursor: 'pointer',
+                        fontSize: '1rem',
+                        transition: 'all 0.3s ease',
+                        whiteSpace: 'nowrap'
+                    }}
+                >
+                    📋 Incident Reports
                 </button>
                 <button
                     onClick={() => setActiveTab('submissions')}
@@ -115,152 +154,159 @@ function AdminDashboard() {
                         fontWeight: activeTab === 'submissions' ? 'bold' : 'normal',
                         cursor: 'pointer',
                         fontSize: '1rem',
-                        transition: 'all 0.3s ease'
+                        transition: 'all 0.3s ease',
+                        whiteSpace: 'nowrap'
                     }}
                 >
                     📝 All Submissions
                 </button>
             </div>
 
-            {activeTab === 'dashboard' ? (
-                <>
-                    {/* Stats Overview */}
-                    <div className="grid grid-3" style={{ marginBottom: 'var(--spacing-xl)' }}>
-                        <div className="glass-card" style={{ textAlign: 'center' }}>
-                            <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>🏠</div>
-                            <div style={{ fontSize: '2.5rem', fontWeight: 'bold', marginBottom: '0.25rem' }}>
-                                {rooms.length}
+            {
+                activeTab === 'dashboard' ? (
+                    <>
+                        {/* Stats Overview */}
+                        <div className="grid grid-3" style={{ marginBottom: 'var(--spacing-xl)' }}>
+                            <div className="glass-card" style={{ textAlign: 'center' }}>
+                                <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>🏠</div>
+                                <div style={{ fontSize: '2.5rem', fontWeight: 'bold', marginBottom: '0.25rem' }}>
+                                    {rooms.length}
+                                </div>
+                                <div style={{ color: 'var(--text-secondary)' }}>Total Rooms</div>
                             </div>
-                            <div style={{ color: 'var(--text-secondary)' }}>Total Rooms</div>
+
+                            <div className="glass-card" style={{ textAlign: 'center' }}>
+                                <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>⚠️</div>
+                                <div style={{
+                                    fontSize: '2.5rem',
+                                    fontWeight: 'bold',
+                                    color: 'var(--danger)',
+                                    marginBottom: '0.25rem'
+                                }}>
+                                    {highRiskRooms.length}
+                                </div>
+                                <div style={{ color: 'var(--text-secondary)' }}>High Risk Rooms</div>
+                            </div>
+
+                            <div className="glass-card" style={{ textAlign: 'center' }}>
+                                <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>✅</div>
+                                <div style={{
+                                    fontSize: '2.5rem',
+                                    fontWeight: 'bold',
+                                    color: 'var(--success)',
+                                    marginBottom: '0.25rem'
+                                }}>
+                                    {lowRiskRooms.length}
+                                </div>
+                                <div style={{ color: 'var(--text-secondary)' }}>Healthy Rooms</div>
+                            </div>
                         </div>
 
-                        <div className="glass-card" style={{ textAlign: 'center' }}>
-                            <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>⚠️</div>
-                            <div style={{
-                                fontSize: '2.5rem',
-                                fontWeight: 'bold',
-                                color: 'var(--danger)',
-                                marginBottom: '0.25rem'
-                            }}>
-                                {highRiskRooms.length}
-                            </div>
-                            <div style={{ color: 'var(--text-secondary)' }}>High Risk Rooms</div>
-                        </div>
-
-                        <div className="glass-card" style={{ textAlign: 'center' }}>
-                            <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>✅</div>
-                            <div style={{
-                                fontSize: '2.5rem',
-                                fontWeight: 'bold',
-                                color: 'var(--success)',
-                                marginBottom: '0.25rem'
-                            }}>
-                                {lowRiskRooms.length}
-                            </div>
-                            <div style={{ color: 'var(--text-secondary)' }}>Healthy Rooms</div>
-                        </div>
-                    </div>
-
-                    {/* Alerts Section */}
-                    {
-                        highRiskRooms.length > 0 && (
-                            <div style={{
-                                padding: 'var(--spacing-lg)',
-                                background: 'hsla(0, 85%, 65%, 0.1)',
-                                border: '1px solid var(--danger)',
-                                borderRadius: 'var(--radius-lg)',
-                                marginBottom: 'var(--spacing-xl)'
-                            }}>
-                                <h3 style={{ color: 'var(--danger)', marginBottom: '1rem' }}>
-                                    🚨 High Risk Alerts
-                                </h3>
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                                    {highRiskRooms.map(room => (
-                                        <div key={room.id} style={{
-                                            display: 'flex',
-                                            justifyContent: 'space-between',
-                                            alignItems: 'center',
-                                            padding: 'var(--spacing-sm)',
-                                            background: 'var(--bg-tertiary)',
-                                            borderRadius: 'var(--radius-sm)'
-                                        }}>
-                                            <div>
-                                                <strong>Room {room.number}</strong>
-                                                <span style={{
-                                                    marginLeft: '1rem',
-                                                    color: 'var(--text-muted)',
-                                                    fontSize: '0.9rem'
-                                                }}>
-                                                    Risk Score: {room.riskScore}%
-                                                </span>
+                        {/* Alerts Section */}
+                        {
+                            highRiskRooms.length > 0 && (
+                                <div style={{
+                                    padding: 'var(--spacing-lg)',
+                                    background: 'hsla(0, 85%, 65%, 0.1)',
+                                    border: '1px solid var(--danger)',
+                                    borderRadius: 'var(--radius-lg)',
+                                    marginBottom: 'var(--spacing-xl)'
+                                }}>
+                                    <h3 style={{ color: 'var(--danger)', marginBottom: '1rem' }}>
+                                        🚨 High Risk Alerts
+                                    </h3>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                                        {highRiskRooms.map(room => (
+                                            <div key={room.id} style={{
+                                                display: 'flex',
+                                                justifyContent: 'space-between',
+                                                alignItems: 'center',
+                                                padding: 'var(--spacing-sm)',
+                                                background: 'var(--bg-tertiary)',
+                                                borderRadius: 'var(--radius-sm)'
+                                            }}>
+                                                <div>
+                                                    <strong>Room {room.number}</strong>
+                                                    <span style={{
+                                                        marginLeft: '1rem',
+                                                        color: 'var(--text-muted)',
+                                                        fontSize: '0.9rem'
+                                                    }}>
+                                                        Risk Score: {room.riskScore}%
+                                                    </span>
+                                                </div>
+                                                <button className="btn btn-primary" style={{ padding: '0.5rem 1rem' }}>
+                                                    Intervene
+                                                </button>
                                             </div>
-                                            <button className="btn btn-primary" style={{ padding: '0.5rem 1rem' }}>
-                                                Intervene
-                                            </button>
-                                        </div>
-                                    ))}
+                                        ))}
+                                    </div>
+                                </div>
+                            )
+                        }
+
+                        {/* Heatmap */}
+                        <RiskHeatmap rooms={rooms} />
+
+                        {/* Trends */}
+                        <div style={{ marginTop: 'var(--spacing-xl)' }}>
+                            <TrendGraph data={trendData} />
+                        </div>
+
+                        {/* Recommendations */}
+                        <div className="glass-card" style={{ marginTop: 'var(--spacing-xl)' }}>
+                            <h3 style={{ marginBottom: '1rem' }}>AI Recommendations</h3>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                                <div style={{
+                                    padding: '1rem',
+                                    background: 'var(--bg-tertiary)',
+                                    borderRadius: 'var(--radius-sm)',
+                                    borderLeft: '4px solid var(--danger)'
+                                }}>
+                                    <strong style={{ color: 'var(--danger)' }}>Immediate Action Required</strong>
+                                    <p style={{ color: 'var(--text-secondary)', marginTop: '0.5rem', fontSize: '0.9rem' }}>
+                                        Room 304 and 307 show consistently high conflict scores for 3+ weeks.
+                                        Consider scheduling mediation sessions or room changes.
+                                    </p>
+                                </div>
+
+                                <div style={{
+                                    padding: '1rem',
+                                    background: 'var(--bg-tertiary)',
+                                    borderRadius: 'var(--radius-sm)',
+                                    borderLeft: '4px solid var(--warning)'
+                                }}>
+                                    <strong style={{ color: 'var(--warning)' }}>Trending Patterns</strong>
+                                    <p style={{ color: 'var(--text-secondary)', marginTop: '0.5rem', fontSize: '0.9rem' }}>
+                                        Common issues: Noise complaints (45%), Cleanliness conflicts (32%), Privacy concerns (18%).
+                                        Consider hostel-wide quiet hours policy.
+                                    </p>
+                                </div>
+
+                                <div style={{
+                                    padding: '1rem',
+                                    background: 'var(--bg-tertiary)',
+                                    borderRadius: 'var(--radius-sm)',
+                                    borderLeft: '4px solid var(--success)'
+                                }}>
+                                    <strong style={{ color: 'var(--success)' }}>Positive Trend</strong>
+                                    <p style={{ color: 'var(--text-secondary)', marginTop: '0.5rem', fontSize: '0.9rem' }}>
+                                        Overall satisfaction increased by 8% this week. Rooms 305, 309, and 312
+                                        show excellent harmony scores.
+                                    </p>
                                 </div>
                             </div>
-                        )
-                    }
-
-                    {/* Heatmap */}
-                    <RiskHeatmap rooms={rooms} />
-
-                    {/* Trends */}
-                    <div style={{ marginTop: 'var(--spacing-xl)' }}>
-                        <TrendGraph data={trendData} />
-                    </div>
-
-                    {/* Recommendations */}
-                    <div className="glass-card" style={{ marginTop: 'var(--spacing-xl)' }}>
-                        <h3 style={{ marginBottom: '1rem' }}>AI Recommendations</h3>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                            <div style={{
-                                padding: '1rem',
-                                background: 'var(--bg-tertiary)',
-                                borderRadius: 'var(--radius-sm)',
-                                borderLeft: '4px solid var(--danger)'
-                            }}>
-                                <strong style={{ color: 'var(--danger)' }}>Immediate Action Required</strong>
-                                <p style={{ color: 'var(--text-secondary)', marginTop: '0.5rem', fontSize: '0.9rem' }}>
-                                    Room 304 and 307 show consistently high conflict scores for 3+ weeks.
-                                    Consider scheduling mediation sessions or room changes.
-                                </p>
-                            </div>
-
-                            <div style={{
-                                padding: '1rem',
-                                background: 'var(--bg-tertiary)',
-                                borderRadius: 'var(--radius-sm)',
-                                borderLeft: '4px solid var(--warning)'
-                            }}>
-                                <strong style={{ color: 'var(--warning)' }}>Trending Patterns</strong>
-                                <p style={{ color: 'var(--text-secondary)', marginTop: '0.5rem', fontSize: '0.9rem' }}>
-                                    Common issues: Noise complaints (45%), Cleanliness conflicts (32%), Privacy concerns (18%).
-                                    Consider hostel-wide quiet hours policy.
-                                </p>
-                            </div>
-
-                            <div style={{
-                                padding: '1rem',
-                                background: 'var(--bg-tertiary)',
-                                borderRadius: 'var(--radius-sm)',
-                                borderLeft: '4px solid var(--success)'
-                            }}>
-                                <strong style={{ color: 'var(--success)' }}>Positive Trend</strong>
-                                <p style={{ color: 'var(--text-secondary)', marginTop: '0.5rem', fontSize: '0.9rem' }}>
-                                    Overall satisfaction increased by 8% this week. Rooms 305, 309, and 312
-                                    show excellent harmony scores.
-                                </p>
-                            </div>
                         </div>
-                    </div>
-                </>
-            ) : (
-                <SubmissionsManager />
-            )}
-        </div>
+                    </>
+                ) : activeTab === 'alerts' ? (
+                    <SOSAlerts />
+                ) : activeTab === 'incidents' ? (
+                    <IncidentReports />
+                ) : (
+                    <SubmissionsManager />
+                )
+            }
+        </div >
     )
 }
 

@@ -12,6 +12,8 @@
 ### Key Features
 
 - **📝 Weekly Vibe Checks** - Track student feedback with user attribution
+- **🚨 Emergency SOS** - Instant alerts for urgent situations
+- **📷 Incident Reporting** - Report issues with photo evidence
 - **🎯 Conflict Risk Scores** - AI-calculated harmony scores (0-100%)
 - **📊 Admin Dashboard** - Real-time monitoring with heatmaps & trends
 - **👤 User Management** - View and manage submissions by user
@@ -178,6 +180,8 @@ Roomify/
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | POST | `/api/student/vibe-check` | Submit weekly survey |
+| POST | `/api/student/sos` | Send emergency SOS alert |
+| POST | `/api/student/incident-report` | Report incident with photo |
 | GET | `/api/student/harmony-score/:roomId` | Get room score |
 | GET | `/api/student/tips/:roomId` | Get peace tips |
 
@@ -188,6 +192,10 @@ Roomify/
 | GET | `/api/admin/dashboard` | Get overview stats |
 | GET | `/api/admin/rooms` | Get all rooms |
 | GET | `/api/admin/alerts` | Get high-risk alerts |
+| GET | `/api/admin/sos-alerts` | Get emergency SOS alerts |
+| PATCH | `/api/admin/sos-alerts/:id` | Resolve SOS alert |
+| GET | `/api/admin/incident-reports` | Get incident reports |
+| PATCH | `/api/admin/incident-reports/:id` | Resolve incident report |
 | GET | `/api/admin/submissions` | Get all vibe checks with usernames |
 | DELETE | `/api/admin/submissions/:id` | Delete a specific submission |
 | DELETE | `/api/admin/users/:username` | Delete all records for a user |
